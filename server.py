@@ -21,7 +21,7 @@ with app.app_context():
     db.create_all()
 
 IMAGE_FOLDER = "static/Images/"
-SERVER_URL = "localhost:5000"
+SERVER_URL = os.environ['MOBILE_LINK_TRANSFER_URL']
 DEBUG = True
 
 # to be accessed from PC
