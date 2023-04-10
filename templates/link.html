@@ -1,0 +1,11 @@
+<html>
+    <head></head>
+    <body>
+        <form action="{{ url_for('link') }}" method="post" >
+            <p>Paste the link you want to send:</p>
+            <input type="text" id="thefuckinglink" name="thefuckinglink" value="" /><br>
+            <input type="hidden" id="thefuckingcode" name="thefuckingcode" value="{{thefuckingcode}}" />
+            <input type="submit" value="send shit"/>
+        </form>
+    </body>
+</html>

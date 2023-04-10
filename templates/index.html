@@ -1,0 +1,60 @@
+<html>
+    <head></head>
+    <body>
+        <img src="{{ image_url }}" alt="My Image">
+
+        <!-- 
+            shoudl post to something 
+            check if there is any value
+            if so, redirect to page
+            else, do nothing
+            .
+            we will need som js here to make it less network intensive
+        -->
+        <input type="hidden" id="thefuckingcode" name="thefuckingcode" value="{{thefuckingcode}}" />
+        <input type="button" id="thefuckingbutton" value="reload this shit" />
+        {% if debug %}
+            <input type="button" id="thefuckingdeletebutton" value="NUKE IT FROM THE ORBIT" />
+        {% endif %}
+        <script>
+            var thefuckingbutton = document.getElementById('thefuckingbutton');
+            thefuckingbutton.onclick = function() {
+                fetch("/check-link/?thefuckingcode={{thefuckingcode}}")
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    if(data.text && data.text !== '') {
+                        // add request to delete qr file and link in db
+                        const requestData = {
+                            thefuckingcode: "{{thefuckingcode}}"
+                        };
+                        fetch('/delete-link/', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(requestData)
+                        });
+                        //Redirect user
+                        document.location = data.text;
+                    }
+                })
+                .catch(error => console.error(error));
+            };
+        </script>
+        {% if debug %}
+        <script>
+            var thefuckingdeletebutton = document.getElementById('thefuckingdeletebutton');
+            thefuckingdeletebutton.onclick = function() {
+                fetch('/delete-all/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify()
+                });
+            };
+        </script>
+        {% endif %}
+    </body>
+</html>
